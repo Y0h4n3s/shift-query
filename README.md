@@ -2,6 +2,9 @@
 
 Shift-query is a library for querying a Shift AST for patterns of syntax using a CSS style selector system.
 
+This is a fork and update of esquery to be used with the Shift suite of parsers and tools. No significant functionality
+has been changed.
+
 ## Install
 
 ```bash
@@ -11,7 +14,34 @@ $ npm install shift-query
 ## Usage
 
 ```javascript
+const query = require('shift-query');
+const { parseScript } = require('shift-parser');
 
+const ast = parseScript(`
+function add(a, b) { return a + b };
+function noop() { };
+
+const sum = add(1,2);
+`);
+
+const binding = query(ast, '[name="sum"]');
+console.log(binding);
+/*
+[ BindingIdentifier { type: 'BindingIdentifier', name: 'sum' } ]
+*/
+
+const functionsWithParams = query(ast, '[params.items.length>0]');
+console.log(functionsWithParams);
+
+/*
+[ FunctionDeclaration {
+  type: 'FunctionDeclaration',
+  isAsync: false,
+  isGenerator: false,
+  name: BindingIdentifier { type: 'BindingIdentifier', name: 'add' },
+  params: FormalParameters { type: 'FormalParameters', items: [Array], rest: null },
+  body: FunctionBody { type: 'FunctionBody', directives: [], statements: [Array] } } ]
+*/
 ```
 
 The following selectors are supported:
