@@ -1,6 +1,6 @@
 
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
     "./fixtures/conditional",
@@ -13,15 +13,16 @@ define([
 
         "two attributes": function () {
             var matches = esquery(conditional, '[left.name="x"][right.value=1]');
+
             assert.contains([
-                conditional.body[0].test
+                conditional.statements[0].test
             ], matches);
         },
 
         "type and pseudo": function () {
             var matches = esquery(conditional, '[left.name="x"]:matches(*)');
             assert.contains([
-                conditional.body[0].test
+                conditional.statements[0].test
             ], matches);
         }
     });

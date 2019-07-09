@@ -1,6 +1,6 @@
 
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
     "./fixtures/conditional",
@@ -14,17 +14,17 @@ define([
         "single field": function () {
             var matches = esquery(conditional, ".test");
             assert.contains([
-                conditional.body[0].test,
-                conditional.body[1].test,
-                conditional.body[1].alternate.test
+                conditional.statements[0].test,
+                conditional.statements[1].test,
+                conditional.statements[1].alternate.test
             ], matches);
         },
 
         "field sequence": function () {
-            var matches = esquery(simpleProgram, ".declarations.init");
+            var matches = esquery(simpleProgram, ".declarators.init");
             assert.contains([
-                simpleProgram.body[0].declarations[0].init,
-                simpleProgram.body[1].declarations[0].init
+                simpleProgram.statements[0].declaration.declarators[0].init,
+                simpleProgram.statements[1].declaration.declarators[0].init
             ], matches);
         }
     });

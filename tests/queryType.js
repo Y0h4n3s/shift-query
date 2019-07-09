@@ -1,6 +1,6 @@
 
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
     "./fixtures/conditional",
@@ -12,124 +12,124 @@ define([
     test.defineSuite("Type query", {
 
         "conditional": function () {
-            var matches = esquery(conditional, "Program");
+            var matches = esquery(conditional, "Script");
             assert.contains([conditional], matches);
 
             matches = esquery(conditional, "IfStatement");
             assert.contains([
-                conditional.body[0],
-                conditional.body[1],
-                conditional.body[1].alternate
+                conditional.statements[0],
+                conditional.statements[1],
+                conditional.statements[1].alternate
             ], matches);
 
-            matches = esquery(conditional, "LogicalExpression");
+            matches = esquery(conditional, "BinaryExpression");
             assert.contains([
-                conditional.body[1].test,
-                conditional.body[1].test.left
+                conditional.statements[1].test,
+                conditional.statements[1].test.left
             ], matches);
 
             matches = esquery(conditional, "ExpressionStatement");
             assert.contains([
-                conditional.body[0].consequent.body[0],
-                conditional.body[0].alternate.body[0],
-                conditional.body[1].consequent.body[0],
-                conditional.body[1].alternate.consequent.body[0]
+                conditional.statements[0].consequent.block.statements[0],
+                conditional.statements[0].alternate.block.statements[0],
+                conditional.statements[1].consequent.block.statements[0],
+                conditional.statements[1].alternate.consequent.block.statements[0]
             ], matches);
         },
 
         "for loop": function () {
-            var matches = esquery(forLoop, "Program");
+            var matches = esquery(forLoop, "Script");
             assert.contains([forLoop], matches);
 
             matches = esquery(forLoop, "ForStatement");
             assert.contains([
-                forLoop.body[0]
+                forLoop.statements[0]
             ], matches);
 
             matches = esquery(forLoop, "BinaryExpression");
             assert.contains([
-                forLoop.body[0].test
+                forLoop.statements[0].test
             ], matches);
         },
 
         "simple function": function () {
-            var matches = esquery(simpleFunction, "Program");
+            var matches = esquery(simpleFunction, "Script");
             assert.contains([simpleFunction], matches);
 
-            matches = esquery(simpleFunction, "VariableDeclaration");
+            matches = esquery(simpleFunction, "VariableDeclarationStatement");
             assert.contains([
-                simpleFunction.body[0].body.body[0]
+                simpleFunction.statements[0].body.statements[0]
             ], matches);
 
             matches = esquery(simpleFunction, "FunctionDeclaration");
             assert.contains([
-                simpleFunction.body[0]
+                simpleFunction.statements[0]
             ], matches);
 
             matches = esquery(simpleFunction, "ReturnStatement");
             assert.contains([
-                simpleFunction.body[0].body.body[2]
+                simpleFunction.statements[0].body.statements[2]
             ], matches);
         },
 
         "simple program": function () {
-            var matches = esquery(simpleProgram, "Program");
+            var matches = esquery(simpleProgram, "Script");
             assert.contains([simpleProgram], matches);
 
-            matches = esquery(simpleProgram, "VariableDeclaration");
+            matches = esquery(simpleProgram, "VariableDeclarationStatement");
             assert.contains([
-                simpleProgram.body[0],
-                simpleProgram.body[1]
+                simpleProgram.statements[0],
+                simpleProgram.statements[1]
             ], matches);
 
             matches = esquery(simpleProgram, "AssignmentExpression");
             assert.contains([
-                simpleProgram.body[2].expression,
-                simpleProgram.body[3].consequent.body[0].expression
+                simpleProgram.statements[2].expression,
             ], matches);
 
-            matches = esquery(simpleProgram, "Identifier");
+            matches = esquery(simpleProgram, "CompoundAssignmentExpression");
             assert.contains([
-                simpleProgram.body[0].declarations[0].id,
-                simpleProgram.body[1].declarations[0].id,
-                simpleProgram.body[2].expression.left,
-                simpleProgram.body[2].expression.right.left,
-                simpleProgram.body[3].test,
-                simpleProgram.body[3].consequent.body[0].expression.left
+                simpleProgram.statements[3].consequent.block.statements[0].expression
+            ], matches);
+
+            matches = esquery(simpleProgram, "BindingIdentifier");
+            assert.contains([
+                simpleProgram.statements[0].declaration.declarators[0].binding,
+                simpleProgram.statements[1].declaration.declarators[0].binding,
             ], matches);
         },
 
         "# type": function () {
-            var matches = esquery(forLoop, "#Program");
+            var matches = esquery(forLoop, "#Script");
             assert.contains([
                 forLoop
             ], matches);
 
             matches = esquery(forLoop, "#ForStatement");
             assert.contains([
-                forLoop.body[0]
+                forLoop.statements[0]
             ], matches);
 
             matches = esquery(forLoop, "#BinaryExpression");
             assert.contains([
-                forLoop.body[0].test
+                forLoop.statements[0].test
             ], matches);
         },
 
         "case insensitive type": function () {
-            var matches = esquery(forLoop, "Program");
+            var matches = esquery(forLoop, "Script");
             assert.contains([
                 forLoop
             ], matches);
 
             matches = esquery(forLoop, "forStatement");
             assert.contains([
-                forLoop.body[0]
+                forLoop.statements[0]
             ], matches);
 
             matches = esquery(forLoop, "binaryexpression");
             assert.contains([
-                forLoop.body[0].test
+                forLoop.statements[0].test
             ], matches);
         }
     });

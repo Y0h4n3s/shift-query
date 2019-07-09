@@ -2482,13 +2482,13 @@ var result = (function(){
                   }
                 }
                 if (result1 === null) {
-                  if (input.substr(pos, 7).toLowerCase() === "pattern") {
-                    result1 = input.substr(pos, 7);
-                    pos += 7;
+                  if (input.substr(pos, 6).toLowerCase() === "target") {
+                    result1 = input.substr(pos, 6);
+                    pos += 6;
                   } else {
                     result1 = null;
                     if (reportFailures === 0) {
-                      matchFailed("\"pattern\"");
+                      matchFailed("\"target\"");
                     }
                   }
                 }

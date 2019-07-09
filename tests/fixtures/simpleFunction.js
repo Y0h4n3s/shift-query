@@ -1,11 +1,11 @@
-define(["esprima"], function (esprima) {
+define(["shift-parser"], function ({parseScript}) {
 
-    return esprima.parse(
-        "function foo(x, y) {\n" +
-        "  var z = x + y;\n" +
-        "  z++;\n" +
-        "  return z;\n" +
-        "}\n"
+    return parseScript(`
+    function foo(x, y) {
+        var z = x + y;
+        z++;
+        return z;
+      }    `
     );
 
 });

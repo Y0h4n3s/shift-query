@@ -1,6 +1,6 @@
 
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
     "./fixtures/conditional",
@@ -14,42 +14,40 @@ define([
         "conditional matches": function () {
             var matches = esquery(conditional, ":matches(IfStatement)");
             assert.contains([
-                conditional.body[0],
-                conditional.body[1].alternate
+                conditional.statements[0],
+                conditional.statements[1].alternate
             ], matches);
         },
 
         "for loop matches": function () {
-            var matches = esquery(forLoop, ":matches(BinaryExpression, MemberExpression)");
+            var matches = esquery(forLoop, ":matches(BinaryExpression, ComputedMemberExpression)");
             assert.contains([
-                forLoop.body[0].test,
-                forLoop.body[0].body.body[0].expression.callee
+                forLoop.statements[0].test,
+                forLoop.statements[0].body.block.statements[0].expression.callee
             ], matches);
         },
 
         "simple function matches": function () {
             var matches = esquery(simpleFunction, ':matches([name="foo"], ReturnStatement)');
             assert.contains([
-                simpleFunction.body[0].id,
-                simpleFunction.body[0].body.body[2]
+                simpleFunction.statements[0].name,
+                simpleFunction.statements[0].body.statements[2]
             ], matches);
         },
 
         "simple program matches": function () {
-            var matches = esquery(simpleProgram, ":matches(AssignmentExpression, BinaryExpression)");
+            var matches = esquery(simpleProgram, ":matches(AssignmentExpression, CompoundAssignmentExpression)");
             assert.contains([
-                simpleProgram.body[2].expression,
-                simpleProgram.body[3].consequent.body[0].expression,
-                simpleProgram.body[2].expression.right
+                simpleProgram.statements[2].expression,
+                simpleProgram.statements[3].consequent.block.statements[0].expression,
             ], matches);
         },
 
         "implicit matches": function () {
-            var matches = esquery(simpleProgram, "AssignmentExpression, BinaryExpression, NonExistant");
+            var matches = esquery(simpleProgram, "AssignmentExpression, CompoundAssignmentExpression, NonExistant");
             assert.contains([
-                simpleProgram.body[2].expression,
-                simpleProgram.body[3].consequent.body[0].expression,
-                simpleProgram.body[2].expression.right
+                simpleProgram.statements[2].expression,
+                simpleProgram.statements[3].consequent.block.statements[0].expression,
             ], matches);
         }
     });

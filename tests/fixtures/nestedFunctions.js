@@ -1,12 +1,14 @@
-define(["esprima"], function (esprima) {
+define(["shift-parser"], function ({parseScript}) {
 
-    return esprima.parse(
-        "function foo() {\n" +
-        "  var x = 1;\n" +
-        "  function bar() {\n" +
-        "    x = 2;\n" +
-        "  }\n" +
-        "}\n"
+    return parseScript(
+`
+function foo() {
+    var x = 1;
+    function bar() {
+      x = 2;
+    }
+  }
+  `
     );
 
 });

@@ -1,10 +1,10 @@
-define(["esprima"], function (esprima) {
+define(["shift-parser"], function ({parseScript}) {
 
-    return esprima.parse(
-        "var x = 1;\n" +
-        "var y = 'y';\n" +
-        "x = x * 2;\n" +
-        "if (y) { y += 'z'; }\n"
-    );
+    return parseScript(`
+        var x = 1;
+        var y = 'y';
+        x = x * 2;
+        if (y) { y += 'z'; }
+    `);
 
 });

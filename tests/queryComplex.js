@@ -1,6 +1,6 @@
 
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
     "./fixtures/conditional",
@@ -15,35 +15,35 @@ define([
         "two types child": function () {
             var matches = esquery(conditional, "IfStatement > BinaryExpression");
             assert.contains([
-                conditional.body[0].test
+                conditional.statements[0].test
             ], matches);
         },
 
         "three types child": function () {
-            var matches = esquery(conditional, "IfStatement > BinaryExpression > Identifier");
+            var matches = esquery(conditional, "IfStatement > BinaryExpression > IdentifierExpression");
             assert.contains([
-                conditional.body[0].test.left
+                conditional.statements[0].test.left
             ], matches);
         },
 
         "two types descendant": function () {
             var matches = esquery(conditional, "IfStatement BinaryExpression");
             assert.contains([
-                conditional.body[0].test
+                conditional.statements[0].test
             ], matches);
         },
 
         "two types sibling": function () {
-            var matches = esquery(simpleProgram, "VariableDeclaration ~ IfStatement");
+            var matches = esquery(simpleProgram, "VariableDeclarationStatement ~ IfStatement");
             assert.contains([
-                simpleProgram.body[3]
+                simpleProgram.statements[3]
             ], matches);
         },
 
         "two types adjacent": function () {
-            var matches = esquery(simpleProgram, "VariableDeclaration + ExpressionStatement");
+            var matches = esquery(simpleProgram, "VariableDeclarationStatement + ExpressionStatement");
             assert.contains([
-                simpleProgram.body[2]
+                simpleProgram.statements[2]
             ], matches);
         }
     });

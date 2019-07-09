@@ -1,6 +1,6 @@
 
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
     "./fixtures/conditional",
@@ -18,7 +18,7 @@ define([
 
         "conditional": function () {
             var matches = esquery(conditional, "*");
-            assert.isEqual(35, matches.length);
+            assert.isEqual(39, matches.length);
         },
 
         "for loop": function () {
@@ -28,36 +28,13 @@ define([
 
         "simple function": function () {
             var matches = esquery(simpleFunction, "*");
-            assert.isEqual(17, matches.length);
+            assert.isEqual(19, matches.length);
         },
 
         "simple program": function () {
             var matches = esquery(simpleProgram, "*");
-            assert.isEqual(22, matches.length);
+            assert.isEqual(25, matches.length);
         },
 
-        "small program": function () {
-            var program = {
-                type: "Program",
-                body: [{
-                    type: "VariableDeclaration",
-                    declarations: [{
-                        type: "VariableDeclarator",
-                        id: {type: "Identifier", name: "x"},
-                        init: {type: "Literal", value: 1, raw: "1"}
-                    }],
-                    kind: "var"
-                }]
-            };
-            matches = esquery(program, "*");
-
-            assert.contains([
-                program,
-                program.body[0],
-                program.body[0].declarations[0],
-                program.body[0].declarations[0].id,
-                program.body[0].declarations[0].init
-            ], matches);
-        }
     });
 });

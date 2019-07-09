@@ -1,5 +1,5 @@
-define(["esprima"], function (esprima) {
+define(["shift-parser"], function ({parseScript}) {
 
-    return esprima.parse("for (i = 0; i < foo.length; i++) { foo[i](); }");
+    return parseScript("for (i = 0; i < foo.length; i++) { foo[i](); }");
 
 });

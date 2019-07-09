@@ -1,5 +1,5 @@
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
 ], function (esquery, assert, test) {

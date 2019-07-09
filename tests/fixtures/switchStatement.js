@@ -1,6 +1,6 @@
-define(["esprima"], function (esprima) {
+define(["shift-parser"], function ({parseScript}) {
 
-    return esprima.parse(
+    return parseScript(
         "var x = 1;\n" +
         "switch (x) {\n" +
         "  case 0: foo1(); break;\n" +

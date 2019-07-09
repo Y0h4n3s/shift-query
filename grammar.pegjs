@@ -96,6 +96,6 @@ nthChild = ":nth-child(" _ n:[0-9]+ _ ")" { return nth(parseInt(n.join(''), 10))
 nthLastChild = ":nth-last-child(" _ n:[0-9]+ _ ")" { return nthLast(parseInt(n.join(''), 10)); }
 
 
-class = ":" c:("statement"i / "expression"i / "declaration"i / "function"i / "pattern"i) {
+class = ":" c:("statement"i / "expression"i / "declaration"i / "function"i / "target"i) {
   return { type: 'class', name: c };
 }

@@ -1,6 +1,6 @@
 
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
     "./fixtures/conditional",
@@ -12,8 +12,8 @@ define([
     test.defineSuite("Pseudo matches query", {
 
         "conditional": function () {
-            var matches = esquery(conditional, ":not(Literal)");
-            assert.isEqual(28, matches.length);
+            var matches = esquery(conditional, ":not(LiteralBooleanExpression)");
+            assert.isEqual(37, matches.length);
         },
 
         "for loop": function () {
@@ -27,31 +27,9 @@ define([
         },
 
         "simple program": function () {
-            var matches = esquery(simpleProgram, ":not(Identifier, IfStatement)");
-            assert.isEqual(15, matches.length);
+            var matches = esquery(simpleProgram, ":not(IdentifierExpression, IfStatement)");
+            assert.isEqual(22, matches.length);
         },
 
-        "small program": function () {
-            var program = {
-                type: "Program",
-                body: [{
-                    type: "VariableDeclaration",
-                    declarations: [{
-                        type: "VariableDeclarator",
-                        id: {type: "Identifier", name: "x"},
-                        init: {type: "Literal", value: 1, raw: "1"}
-                    }],
-                    kind: "var"
-                }]
-            };
-            matches = esquery(program, ":not([value=1])");
-
-            assert.contains([
-                program,
-                program.body[0],
-                program.body[0].declarations[0],
-                program.body[0].declarations[0].id
-            ], matches);
-        }
     });
 });

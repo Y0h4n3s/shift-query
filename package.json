@@ -1,12 +1,12 @@
 {
-  "name": "esquery",
+  "name": "shift-query",
   "preferGlobal": false,
-  "version": "1.0.1",
-  "author": "Joel Feenstra <jrfeenst+esquery@gmail.com>",
-  "description": "A query library for ECMAScript AST using a CSS selector like query language.",
-  "main": "esquery.js",
+  "version": "0.0.1",
+  "author": "Jarrod Overson",
+  "description": "A query library for Shift AST using a CSS selector like query language.",
+  "main": "shift-query.js",
   "files": [
-    "esquery.js",
+    "shift-query.js",
     "parser.js",
     "license.txt",
     "README.md"
@@ -16,10 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jrfeenst/esquery.git"
+    "url": "https://github.com/jsoverson/shift-query.git"
   },
   "keywords": [
     "ast",
+    "shift",
     "ecmascript",
     "javascript",
     "query"
@@ -27,14 +28,10 @@
   "devDependencies": {
     "jstestr": ">=0.4",
     "pegjs": "~0.7.0",
-    "commonjs-everywhere": "~0.9.4",
-    "esprima": "~1.1.1"
+    "shift-parser": "^7.0.0"
   },
   "license": "BSD-3-Clause",
-  "engines": {
-    "node": ">=0.6"
-  },
   "dependencies": {
-    "estraverse": "^4.0.0"
+    "shift-traverser": "^1.0.0"
   }
 }

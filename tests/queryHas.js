@@ -1,6 +1,6 @@
 
 define([
-    "esquery",
+    "shift-query",
     "jstestr/assert",
     "jstestr/test",
     "./fixtures/conditional"
@@ -9,22 +9,22 @@ define([
     test.defineSuite("Parent selector query", {
 
         "conditional": function () {
-            var matches = esquery(conditional, 'ExpressionStatement:has([name="foo"][type="Identifier"])');
+            var matches = esquery(conditional, 'ExpressionStatement:has([name="foo"][type="IdentifierExpression"])');
             assert.isEqual(1, matches.length);
         },
 
         "one of": function () {
-            var matches = esquery(conditional, 'IfStatement:has(LogicalExpression [name="foo"], LogicalExpression [name="x"])');
-            assert.isEqual(1, matches.length);
+            var matches = esquery(conditional, 'IfStatement:has(BinaryExpression [name="foo"], BinaryExpression [name="x"])');
+            assert.isEqual(2, matches.length);
         },
 
         "chaining": function () {
-            var matches = esquery(conditional, 'BinaryExpression:has(Identifier[name="x"]):has(Literal[value="test"])');
-            assert.isEqual(1, matches.length);
+            var matches = esquery(conditional, 'BinaryExpression:has(IdentifierExpression[name="x"]):has(LiteralStringExpression[value="test"])');
+            assert.isEqual(3, matches.length);
         },
 
         "nesting": function () {
-            var matches = esquery(conditional, 'Program:has(IfStatement:has(Literal[value=true], Literal[value=false]))');
+            var matches = esquery(conditional, 'Script:has(IfStatement:has(LiteralBooleanExpression[value=true], LiteralBooleanExpression[value=false]))');
             assert.isEqual(1, matches.length);
         },
 
