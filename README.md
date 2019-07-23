@@ -1,4 +1,4 @@
-#Shift Query
+# Shift Query
 
 Shift-query is a library for querying a Shift AST for patterns of syntax using a CSS style selector system.
 
