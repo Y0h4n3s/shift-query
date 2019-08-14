@@ -5,6 +5,10 @@ Shift-query is a library for querying a Shift AST for patterns of syntax using a
 This is a fork and update of esquery to be used with the Shift suite of parsers and tools. No significant functionality
 has been changed.
 
+## Demo
+
+Check out the [demo here](https://jsoverson.github.io/shift-query-demo/)
+
 ## Install
 
 ```bash
