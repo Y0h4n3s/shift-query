@@ -1,5 +1,7 @@
 
 (function() {
+  "use strict";
+  
   var traverse = require("shift-traverser");
   var parser = require("./parser");
 
@@ -32,7 +34,7 @@
      * Determine whether `node` can be reached by following `path`, starting at `ancestor`.
      */
     function inPath(node, ancestor, path) {
-      var field, remainingPath, i;
+      var field, remainingPath, i, l;
       if (path.length === 0) {
         return node === ancestor;
       }
