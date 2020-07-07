@@ -1,7 +1,7 @@
 
-(function() {
+(function () {
   "use strict";
-  
+
   var traverse = require("shift-traverser");
   var parser = require("./parser");
 
@@ -112,7 +112,7 @@
           for (i = 0, l = selector.selectors.length; i < l; ++i) {
             a = [];
             traverse.traverse(node, {
-              enter: function(node, parent) {
+              enter: function (node, parent) {
                 if (parent != null) {
                   a.unshift(parent);
                 }
@@ -120,7 +120,7 @@
                   collector.push(node);
                 }
               },
-              leave: function() {
+              leave: function () {
                 a.shift();
               }
             });
@@ -198,7 +198,7 @@
         case "nth-child":
           return (
             matches(node, selector.right, ancestry) &&
-            nthChild(node, ancestry, function(length) {
+            nthChild(node, ancestry, function (length) {
               return selector.index.value - 1;
             })
           );
@@ -206,7 +206,7 @@
         case "nth-last-child":
           return (
             matches(node, selector.right, ancestry) &&
-            nthChild(node, ancestry, function(length) {
+            nthChild(node, ancestry, function (length) {
               return length - selector.index.value;
             })
           );
@@ -216,9 +216,9 @@
           switch (selector.name.toLowerCase()) {
             case "statement":
               if (node.type.slice(-9) === "Statement") return true;
-              // fallthrough for FunctionDeclaration, VariableDeclaration
+            // fallthrough for FunctionDeclaration, VariableDeclaration
             case "declaration":
-              return node.type.slice(-11) === "Declaration";
+              return node.type.slice(-11) === "Declaration" && node.type.substr(0, 8) !== 'Variable';
             case "target":
               return node.type.slice(-6) === "Target";
             case "expression":
@@ -383,7 +383,7 @@
       }
       altSubjects = subjects(selector);
       traverse.traverse(ast, {
-        enter: function(node, parent) {
+        enter: function (node, parent) {
           if (parent != null) {
             ancestry.unshift(parent);
           }
@@ -406,7 +406,7 @@
             }
           }
         },
-        leave: function() {
+        leave: function () {
           ancestry.shift();
         }
       });
